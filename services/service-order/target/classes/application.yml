@@ -1,0 +1,42 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: test
+  application:
+    name: service-order
+  cloud:
+    nacos:
+      server-addr: 49.232.84.186:8848
+      config:
+        namespace: ${spring.profiles.active:dev}
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: dev
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    import:
+      - nacos:common.properties?group=order
+      - nacos:database.properties?group=order
+    activate:
+      on-profile: test
