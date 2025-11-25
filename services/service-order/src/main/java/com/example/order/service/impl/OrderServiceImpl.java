@@ -1,6 +1,7 @@
 package com.example.order.service.impl;
 
 import com.example.order.bean.Order;
+import com.example.order.feign.ProductFeignClient;
 import com.example.order.service.OrderService;
 import com.example.product.bean.Product;
 import jakarta.annotation.Resource;
@@ -26,11 +27,14 @@ public class OrderServiceImpl implements OrderService {
     private RestTemplate restTemplate;
     @Resource
     private LoadBalancerClient loadBalancerClient;
+    @Resource
+    private ProductFeignClient productFeignClient;
 
     @Override
     public Order createOrder(Long userId, Long productId) {
         //Product product = getProductFromRemote(productId);
-        Product product = getProductFromRemoteWithBalance(productId);
+        //Product product = getProductFromRemoteWithBalance(productId);
+        Product product = productFeignClient.getProductById(productId);
         Order order = new Order();
         order.setUserId(userId);
         //商品列表
@@ -55,7 +59,7 @@ public class OrderServiceImpl implements OrderService {
 
     private Product getProductFromRemoteWithBalance(Long productId) {
         //获取到商品服务的所有机器的ip+port--负载均衡
-        ServiceInstance serviceInstance = loadBalancerClient.choose("service-product");
+        ServiceInstance serviceInstance = loadBalancerClient.choose(" -product");
         //远程url地址
         String url = "http://"+serviceInstance.getHost() + ":" + serviceInstance.getPort()+"/product/"+productId;
         log.info("发送请求url:{}",url);

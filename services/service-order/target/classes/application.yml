@@ -1,21 +1,27 @@
 server:
   port: 8080
 spring:
+#  确定当前环境 dev prod test 可以决定nacos的命名空间及spring会引入什么配置文件
   profiles:
     active: test
+    include: feign
   application:
     name: service-order
   cloud:
     nacos:
       server-addr: 49.232.84.186:8848
+      # nacos 配置 配置命名空间 不配置激活的环境 默认会使用dev
       config:
         namespace: ${spring.profiles.active:dev}
-  config:
-    import:
-      - nacos:common.properties?group=order
-      - nacos:database.properties?group=order
+        import-check:
+          enabled: false
+#ribbon:
+#  ReadTimeout: 120000
+#  ConnectTimeout: 30000
+
 
 ---
+#当为dev的时候引入这些配置文件
 spring:
   config:
     import:
