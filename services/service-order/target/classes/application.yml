@@ -13,12 +13,14 @@ spring:
       # nacos 配置 配置命名空间 不配置激活的环境 默认会使用dev
       config:
         namespace: ${spring.profiles.active:dev}
-        import-check:
+        import-check: 
           enabled: false
 #ribbon:
 #  ReadTimeout: 120000
 #  ConnectTimeout: 30000
-
+feign:
+  sentinel:
+    enabled: true
 
 ---
 #当为dev的时候引入这些配置文件
