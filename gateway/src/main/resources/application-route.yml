@@ -1,15 +1,28 @@
 spring:
   cloud:
+    #配置了网管之后 不能在域名后面写具体端口号  那样会绕过网关
     gateway:
+      #全局跨域
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: '*'
+            allowed-methods: '*'
+            allowed-headers: '*'
       routes:
         - id: service-order #这个id可以自定义
           uri: lb://service-order #lb是代表启用负载均衡，lb://后面的是对应微服务的spring.application.name
           predicates:  #断言：描述什么路径会转发到uri对应的微服务中
           - Path=/api/order/**
+          filters: # /api/order/abc -> /abc
+            - RewritePath=/api/order/(?<segment>.*),/$\{segment}
+            - OnceToken=X-Response-Token,uuid #使用自定义过滤器OnceTokenGatewayFilterFactory：添加一个响应头X-Response-Token，值为uuid
         - id: service-product
           uri: lb://service-product
           predicates:
           - Path=/api/product/**
+          filters: # /api/order/abc -> /abc
+            - RewritePath=/api/product/(?<segment>.*),/$\{segment}
         #该网关规则能访问的网址为：http://localhost/search?q=hello&user=zhj
         #其中Vip断言规则为自定义的，参数为name和value，name为参数名，value为参数值
         - id: bing
@@ -22,7 +35,7 @@ spring:
               args:
                 param: q
                 regex: hello
-            #- Vip=user,zhj
+            #- Vip=user,zhj ---自定义断言
             - name: Vip
               args:
                 name: user

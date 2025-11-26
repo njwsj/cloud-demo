@@ -14,6 +14,6 @@ public interface ProductFeignClient {
     //mvc注解的两套使用逻辑
     //在controller上是接受get请求
     //在feign接口上是发送这样的请求
-    @GetMapping("/api/product/product/{id}")
+    @GetMapping("/product/{id}")
     Product getProductById(@PathVariable("id") Long id);
 }

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RefreshScope // 动态刷新 当nacos的配置文件修改了之后 自动会刷新
 @RestController
-@RequestMapping("/api/order")
+//@RequestMapping("/api/order")
 public class OrderController {
     @Resource
     private OrderService orderService;

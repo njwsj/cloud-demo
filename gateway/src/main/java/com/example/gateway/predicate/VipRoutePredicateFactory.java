@@ -17,7 +17,7 @@ import java.util.function.Predicate;
 
 /**
  * 自定义网关路由断言工厂
- * 这个类名VipRoutePredicateFactory前面的Vip就是断言名
+ * 这个类名VipRoutePredicateFactory前面的Vip就是断言名--这个必须和配置文件中的对应上
  * 例如在配置中的
  * 短写法 -Vip=user，zhj
  * 长写法：
