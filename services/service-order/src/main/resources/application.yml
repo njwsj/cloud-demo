@@ -18,7 +18,9 @@ spring:
       eager: true
       transport:
         dashboard: localhost:8080
-#        client-ip: 49.232.84.186
+      #关闭上下文统一  链路流控规则需要用
+      web-context-unify: false
+  #        client-ip: 49.232.84.186
 
   # 注意：sentinel 和 cloud 是同级！都在 spring 下
 #ribbon:

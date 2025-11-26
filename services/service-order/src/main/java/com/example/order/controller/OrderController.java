@@ -31,6 +31,14 @@ public class OrderController {
         return orderService.createOrder(userId, productId);
     }
 
+    @GetMapping("/seckill")
+    public Order seckillOrder(@RequestParam("user_id") Long userId,
+                             @RequestParam("product_id") Long productId){
+        Order order = orderService.createOrder(userId, productId);
+        order.setNickName("seckill");
+        return order;
+    }
+
     /**
      * 获取订单配置信息
      * @return 包含订单超时时间和自动确认配置的字符串
