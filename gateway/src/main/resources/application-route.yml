@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: service-order #这个id可以自定义
+          uri: lb://service-order #lb是代表启用负载均衡，lb://后面的是对应微服务的spring.application.name
+          predicates:  #断言：描述什么路径会转发到uri对应的微服务中
+          - Path=/api/order/**
+        - id: service-product
+          uri: lb://service-product
+          predicates:
+          - Path=/api/product/**
+        #该网关规则能访问的网址为：http://localhost/search?q=hello&user=zhj
+        #其中Vip断言规则为自定义的，参数为name和value，name为参数名，value为参数值
+        - id: bing
+          uri: https://cn.bing.com
+          predicates:
+            - name: Path
+              args:
+                patterns: /search
+            - name: Query
+              args:
+                param: q
+                regex: hello
+            #- Vip=user,zhj
+            - name: Vip
+              args:
+                name: user
+                value: zhj

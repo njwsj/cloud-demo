@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    include: route
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 49.232.84.186:8848
+      config:
+        import-check:
+          enabled: false
+server:
+  port: 80

@@ -7,6 +7,7 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RefreshScope // 动态刷新 当nacos的配置文件修改了之后 自动会刷新
 @RestController
+@RequestMapping("/api/order")
 public class OrderController {
     @Resource
     private OrderService orderService;
