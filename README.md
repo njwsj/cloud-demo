@@ -45,3 +45,19 @@ public class OrderController {
     }
 }
 ```
+
+## gateway网关
+
+### 配置网关
+在配置文件application.yml中可以配置网关 
+
+routes下是一个数组，里面可以配置多个路由
+每个路由对象包含属性：
+- **id：路由id**
+- **uri：路由的uri**
+- **predicates：断言**  
+    断言支持长写法和短写法  
+    也支持自定义断言：在route.yml中配置了Vip自定义断言，同时也需要配置自定义断言的配置类
+- **filters：过滤器**  
+    过滤器可以实现将/api/order/xxx 转换为 /xxx  
+    过滤器同样可以自定义  像断言也需要配置过滤器的配置类
