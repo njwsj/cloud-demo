@@ -1,5 +1,7 @@
 ## 启动sentinel  
 java -Dserver.port=8080 -jar sentinel-dashboard-1.8.9.jar  
+下载sentinel控制台
+[链接](https://sentinelguard.io/zh-cn/docs/dashboard.html)
 
 ## 熔断机制
 ### 参数
