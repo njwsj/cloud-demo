@@ -63,3 +63,17 @@ routes下是一个数组，里面可以配置多个路由
 - **filters：过滤器**  
     过滤器可以实现将/api/order/xxx 转换为 /xxx  
     过滤器同样可以自定义  像断言也需要配置过滤器的配置类
+
+## seata
+
+### seata服务下载
+
+[链接](https://seata.apache.org/zh-cn/release-history/seata-server)  
+seata开头的微服务都需要启动seata服务
+
+### 启动seata服务 
+./seata-server.sh -p 8091 -m file  
+### seata可视化页面端口
+7091
+
+需要在每个项目中配置file.conf
